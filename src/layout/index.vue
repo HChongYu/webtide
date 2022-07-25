@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="common-layout">
-      <el-container>
-        <el-header>Header</el-header>
+      <el-container direction="horizontal">
+        <el-aside width="200px">Aside</el-aside>
         <el-container>
-          <el-aside width="200px">Aside</el-aside>
+          <el-header >header</el-header>
           <el-main>
             <router-view></router-view>
           </el-main>
@@ -20,5 +20,16 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
+
+  .common-layout{
+    color: $baseText;
+    .el-header{
+      background: $baseColor;
+    }
+    .el-aside{
+      height: 100vh;
+      background: $baseColor;
+    }
+  }
 </style>
