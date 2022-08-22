@@ -11,7 +11,9 @@
   "dependencies": {
     "@types/webpack": "^5.0.0",
     "@types/webpack-env": "^1.17.0",
+    "axios": "^0.27.2",
     "element-plus": "^2.2.10",
+    "pinia": "^2.0.17",
     "sass": "^1.54.0",
     "sass-loader": "^13.0.2",
     "vue": "^3.2.37",

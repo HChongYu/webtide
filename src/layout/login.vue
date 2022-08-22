@@ -1,6 +1,12 @@
 <template>
   <div class="">
-    <el-form ref="formRef" :inline="true" :model="formData" :rules="formRules" :inline-message="true">
+    <el-form
+      ref="formRef"
+      :inline="true"
+      :model="formData"
+      :rules="formRules"
+      :inline-message="true"
+    >
       <el-form-item label="账号" prop="name">
         <el-input v-model="formData.name" placeholder="请填写您的账号" />
       </el-form-item>
@@ -14,12 +20,26 @@
   </div>
 </template>
 <script  lang="ts">
+import { siteInfo } from "@/api/login";
 import type { FormInstance, FormRules } from "element-plus";
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, onMounted, reactive, ref } from "vue";
+
 export default defineComponent({
   name: "login",
   setup() {
     // type key = "name"|"password";
+    onMounted((): void => {
+      // console.log("mounted!");
+      siteInfo()
+        .then((result: any) => {
+          console.log('ss');
+          console.log(result);
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
+    });
+
     const formRef = ref<FormInstance>();
 
     const formData = reactive({
@@ -35,6 +55,7 @@ export default defineComponent({
           trigger: ["blur"],
         },
         {
+          required: true,
           min: 3,
           max: 5,
           message: "Length should be 3 to 5",

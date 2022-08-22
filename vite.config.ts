@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import dns from 'dns'
+dns.setDefaultResultOrder('verbatim')
 
 // https://vitejs.dev/config/
 // export default defineConfig({
@@ -10,7 +12,7 @@ import vue from '@vitejs/plugin-vue'
 // import { defineConfig } from "vite";
 // import vue from "@vitejs/plugin-vue";
 import path from "path";
- 
+
 export default defineConfig({
   plugins: [vue()],
   base: "./", // 类似publicPath，'./'避免打包访问后空白页面，要加上，不然线上也访问不了
@@ -38,36 +40,37 @@ export default defineConfig({
   //     },
   //   },
   // },
-  // server: {
-  //   https: false, // 是否开启 https
-  //   open: false, // 是否自动在浏览器打开
-  //   port: 3000, // 端口号
-  //   host: "0.0.0.0",
-  //   proxy: {
-  //     "/api": {
-  //       target: "", // 后台接口
-  //       changeOrigin: true,
-  //       secure: false, // 如果是https接口，需要配置这个参数
-  //       // ws: true, //websocket支持
-  //       rewrite: (path) => path.replace(/^\/api/, ""),
-  //     },
-  //   },
-  // },
+  server: {
+    cors: true, 
+    open: true, // 是否自动在浏览器打开
+    port: 5173, // 端口号
+    // host: "mydemo.mo.chat",
+    host: "127.0.0.1",
+    proxy: {
+      "/dashboard": {
+        target: "http://demoapi.mo.chat", // 后台接口
+        changeOrigin: true,
+        secure: true, // 如果是https接口，需要配置这个参数
+        // ws: true, //websocket支持
+        // rewrite: (path) => path.replace(/^\/dashboard/, ""),
+      },
+    },
+  },
   css: {
-		//css预处理
-		preprocessorOptions: {
-			scss: {
-				/*
-				引入var.scss全局预定义变量，
-				如果引入多个文件，
-				可以使用
-				'@import "@/assets/scss/globalVariable1.scss";@import "@/assets/scss/globalVariable2.scss";'
-				这种格式
-				 */
-				additionalData: '@import "@/assets/scss/globalVariable.scss";'
-			}
-		}
-	},
+    //css预处理
+    preprocessorOptions: {
+      scss: {
+        /*
+        引入var.scss全局预定义变量，
+        如果引入多个文件，
+        可以使用
+        '@import "@/assets/scss/globalVariable1.scss";@import "@/assets/scss/globalVariable2.scss";'
+        这种格式
+         */
+        additionalData: '@import "@/assets/scss/globalVariable.scss";'
+      }
+    }
+  },
   // 引入第三方的配置
   optimizeDeps: {
     include: [],
